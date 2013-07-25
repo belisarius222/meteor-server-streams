@@ -21,10 +21,9 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
 
-  // named collection with null 'connection' doesn't store in mongo,
-  // but since the collection is named,
-  // a publish function will push the name down to the client
-  // so the client will automatically store that in a collection of the same name.
+  // Actually, this stores things in mongo still ...
+  // I guess the whole point of having collection: null is for the client
+  // to be able to name its local collections. Oh well.
   Widgets = new Meteor.Collection('widgets', {connection: null});
 
   // unnamed collection, requires that the publish function
