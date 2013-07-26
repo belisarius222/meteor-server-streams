@@ -13,10 +13,10 @@ if (Meteor.isClient) {
   });
 
   Widgets = new Meteor.Collection('widgets');
-  HerpDerps = new Meteor.Collection('herpderps');
+  Thangs = new Meteor.Collection('thangs');
 
   Meteor.subscribe('all-widgets');
-  Meteor.subscribe('all-herpderps');
+  Meteor.subscribe('all-thangs');
 }
 
 if (Meteor.isServer) {
@@ -28,19 +28,19 @@ if (Meteor.isServer) {
 
   // unnamed collection, requires that the publish function
   // declare a name for the collection so the client knows where to stick it
-  HerpDerps = new Meteor.Collection(null);
+  Thangs = new Meteor.Collection(null);
 
   Meteor.publish('all-widgets', function() {
     return Widgets.find();
   });
 
-  Meteor.publish('all-herpderps', function() {
+  Meteor.publish('all-thangs', function() {
     var self = this;
 
     // this is what the client will see.
-    var collectionName = 'herpderps';
+    var collectionName = 'thangs';
 
-    var handle = HerpDerps.find().observeChanges({
+    var handle = Thangs.find().observeChanges({
       added: function(id, doc) {
         self.added(collectionName, id, doc);
       },
@@ -61,7 +61,7 @@ if (Meteor.isServer) {
     meaning: 'none'
   };
 
-  var herpderp = {
+  var thang = {
     herp: 'derp'
   };
 
@@ -72,10 +72,10 @@ if (Meteor.isServer) {
       Widgets.insert(widget);
     }
 
-    HerpDerps.remove({});
+    Thangs.remove({});
 
     for (var j = 0; j < 10; j++) {
-      HerpDerps.insert(herpderp);
+      Thangs.insert(thang);
     }
   });
 
@@ -83,8 +83,8 @@ if (Meteor.isServer) {
     manufacture: function() {
       Widgets.insert(widget);
     },
-    herpderp: function() {
-      HerpDerps.insert(herpderp);
+    Thang: function() {
+      Thangs.insert(thang);
     }
   });
 }
